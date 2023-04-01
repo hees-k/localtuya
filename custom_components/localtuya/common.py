@@ -20,6 +20,7 @@ from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.helpers.dispatcher import (
     async_dispatcher_connect,
     async_dispatcher_send,
+    dispatcher_send,
 )
 from homeassistant.helpers.restore_state import RestoreEntity
 
@@ -664,7 +665,8 @@ class TuyaSubDevice(pytuya.TuyaListener, pytuya.ContextualLogger):
     def _dispatch_status(self):
         """Dispatches status to downstream entities"""
         signal = f"localtuya_{self._config_entry[CONF_DEVICE_ID]}"
-        async_dispatcher_send(self._hass, signal, self._status)
+        # async_dispatcher_send(self._hass, signal, self._status)
+        dispatcher_send(self._hass, signal, self._status)
 
     @callback
     def disconnected(self):
