@@ -1340,9 +1340,16 @@ class TuyaProtocol(asyncio.Protocol, ContextualLogger):
                 self.add_sub_device(cid)
 
             else:
-                if PARAMETER_T in status:
-                    updated_time = status[PARAMETER_T]
-                    status[PROPERTY_DPS][STATUS_LAST_UPDATED_TIME] = updated_time
+                # updated_time = ""
+                # if PARAMETER_T in status:
+                #     updated_time = status[PARAMETER_T]
+                #     status[PROPERTY_DPS][STATUS_LAST_UPDATED_TIME] = updated_time
+
+                # switch
+                for k, value in status[PROPERTY_DPS].items():
+                    if  value in ['single_click', 'double_click', 'long_press']:
+                        status[PROPERTY_DPS][k] = value + '_' + str(self.seqno)
+
                 self.dps_cache[STATUS_LAST_UPDATED_CID] = cid
                 self.dps_cache[cid].update(status[PROPERTY_DPS])
 
