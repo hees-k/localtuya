@@ -66,6 +66,7 @@ from custom_components.localtuya.const import (  # pylint: disable=import-error
     PROPERTY_DPS,
     PARAMETER_DATA,
     STATUS_LAST_UPDATED_CID,
+    STATUS_LAST_UPDATED_TIME,
 )
 
 from homeassistant.const import CONF_DEVICE_ID
@@ -1339,8 +1340,12 @@ class TuyaProtocol(asyncio.Protocol, ContextualLogger):
                 self.add_sub_device(cid)
 
             else:
+                if PARAMETER_T in status:
+                    updated_time = status[PARAMETER_T]
+                    status[PROPERTY_DPS][STATUS_LAST_UPDATED_TIME] = updated_time
                 self.dps_cache[STATUS_LAST_UPDATED_CID] = cid
                 self.dps_cache[cid].update(status[PROPERTY_DPS])
+
         else:
             self.dps_cache.update(status[PROPERTY_DPS])
 
