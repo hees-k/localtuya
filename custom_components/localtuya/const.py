@@ -164,6 +164,7 @@ PARAMETER_DATA = "data"
 STATUS_RETRY = "retry_status"
 STATUS_LAST_USED = "use_last_status"
 STATUS_LAST_UPDATED_CID = "last_updated_cid"
+STATUS_LAST_UPDATED_TIME = "last_updated_time"
 
 CONF_DP = "dp"
 CONF_VALUE = "value"
