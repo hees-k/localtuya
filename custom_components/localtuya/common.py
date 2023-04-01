@@ -673,7 +673,8 @@ class TuyaSubDevice(pytuya.TuyaListener, pytuya.ContextualLogger):
         """Device disconnected."""
         self.is_connected(False)
         signal = f"localtuya_{self._config_entry[CONF_DEVICE_ID]}"
-        async_dispatcher_send(self._hass, signal, self._status)
+        # async_dispatcher_send(self._hass, signal, self._status)
+        dispatcher_send(self._hass, signal, self._status)
         self.debug("Disconnected TuyaSubDevice: %s", signal)
 
 
